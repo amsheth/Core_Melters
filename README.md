@@ -119,11 +119,10 @@ controller. The implementation was very similar to that of a simple pipelined pr
 a cache as an instruction buffer. Our initial implementation of the burst memory controller was
 very basic. It would send data and hold on until sending the value again until it received a
 bmem_resp. We also implemented a well-designed queue which could be implemented of size
-
 0. This allowed us to have registers with information such as whether the register was empty or
 not.
 
-
+![](img/bmc.jpg)
 ```
 Fig 2: Brainstorm of how Burst Memory Controller and fetch stages work
 ```
