@@ -1,0 +1,7 @@
+
+Number of Instructions, ignoring the last instruction is 478156
+Always taken accuracy is 			 0.4856421433760913
+Risc-v suggestion accuracy is 			 0.6632603232453163
+Saturating Counter accuracy, with 32 entries, is 0.779207012779743
+Ignoring the last instruction, 			 0.17559332100820652 of instructions are branches
+

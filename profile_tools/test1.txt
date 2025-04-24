@@ -1,0 +1,3122 @@
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: commit
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: state_next
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+                state_next=s_ready;
+                if (commit) begin
+                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+                state_next=s_ready;
+                if (miss||commit) begin
+                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: dfp_addr
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: tag_in
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: wmask
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: din
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: vvv
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: web
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: dfp_wdata
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: dfp_write
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: wset
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: lru_update
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: halt
+
+always_comb begin
+                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: ufp_resp
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: rdata
+
+always_comb begin
+//                halt='0;
+//                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+//                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+//                            no_val='1;
+                            break;
+                        end
+//                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end
+
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+// VAR: no_val
+
+always_comb begin
+//                halt='0;
+                no_val='0;
+//                ufp_resp='0;
+//                i='0;
+//                rdata='x;
+//                halt='0;
+//                wmask='0;
+//                dfp_addr='0;
+//                din='0;
+                for (int k=0; k<NUM_WAYS;k++) begin
+//                    web[k]='1;
+                end
+//                dfp_read='0;
+//                vvv='0;
+//                dfp_wdata='0;
+//                dfp_write='0;
+//                tag_in='0;
+//                wset='0;
+//                lru_update='1;
+//                state_next=state;
+        unique case (state)
+            s_ready: begin
+
+//                state_next=s_ready;
+                if (commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_hit : begin
+//                state_next=s_hit;
+//                halt='1;
+                if (ball2.ufp_rmask!='0)   begin
+                    for (int k=0; k<NUM_WAYS;k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag)) begin
+//                            rdata=dout[k][(ball2.offset*8)+:32];
+//                            ufp_resp='1;
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(unsigned'(k));
+//                            halt='0;
+//                            state_next=s_ready;
+                            no_val='1;
+                            if (commit) begin
+//                                state_next=s_hit;
+                            end
+                            break;
+                        end
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                            dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+                end
+
+                else begin
+//                    wset='1;
+                    for (int unsigned k=0; k<NUM_WAYS; k++) begin
+                        if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag))begin
+//                            tag_in={1'b1,ball2.tag[(31-(SET_SIZE)):0]};
+//                            din=dout[k];
+                            for (int unsigned j=0;j<4;j++) begin
+                                if (ball2.ufp_wmask[j]) begin
+//                                    din[((ball2.offset*8)+j*8)+:8]=ball2.ufp_wdata[j*8+:8];
+                                end
+                            end
+
+//                            lru_update='0;
+//                            i=($clog2(NUM_WAYS))'(k);
+//                            web[k]='0;
+//                            wmask='1;
+//                            vvv='1;
+//                            ufp_resp='1;
+//                            halt='0;
+//                            state_next=s_write; 
+                            no_val='1;
+                            break;
+                        end
+                        no_val='0;
+                    end
+                    if (!valid[x] && !no_val) begin
+//                        state_next=s_clean_miss;
+//                        halt='1;
+//                        dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                    end
+                    else if (!no_val) begin
+                        if (comp[x][(31-(SET_SIZE-1))]=='0)begin
+//                            state_next=s_clean_miss;
+//                            halt='1;
+//                            dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                        dfp_read='1;
+                        end
+                        else begin
+//                            halt='1;
+//                            dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                            dfp_write='1;
+//                            state_next=s_dirty;
+//                            dfp_wdata=dout[x];
+                        end
+                    end
+
+                end
+            end
+            s_clean_miss: begin
+//                state_next=s_clean_miss;
+//                halt='1;
+//                dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                dfp_read='1;
+                    
+                if (dfp_resp) begin
+//                    dfp_addr={ball2.tag,ball2.set_addr,5'b00000};
+//                    tag_in={1'b0,ball2.tag[(31-(SET_SIZE)):0]};
+
+//                    din=dfp_rdata;
+//                    web[x]='0;
+//                    wmask='1;
+//                    state_next=s_wb;
+//                    vvv='1;
+                end
+
+
+            end
+            s_dirty: begin
+                
+//                halt='1;
+//                dfp_addr={comp[x][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                dfp_write='1;
+//                state_next=s_dirty;
+//                dfp_wdata=dout[x];
+                for (int k=0; k<NUM_WAYS; k++) begin
+                    if (valid[k] && (comp[k][(31-(SET_SIZE)):0]==ball2.tag) && (comp[k][(31-(SET_SIZE-1))]!='0))begin
+//                        halt='1;
+//                        dfp_addr={comp[k][(31-(SET_SIZE)):0],ball2.set_addr,5'b00000};
+//                        dfp_write='1;
+//                        state_next=s_dirty;
+//                        dfp_wdata=dout[k];
+                        break;
+                    end
+                end
+                if (dfp_resp) begin
+//                    state_next=s_clean_miss;
+                end
+            end
+            s_write: begin
+//                halt='1;
+//                wset='0;
+//                state_next=s_ready;
+                if (miss||commit) begin
+//                    state_next=s_hit;
+                end
+            end
+            s_wb: begin
+//                halt='1;
+//                state_next=s_hit;
+            end
+            default : begin 
+            end
+        endcase
+
+
+    end

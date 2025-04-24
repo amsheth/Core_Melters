@@ -1,0 +1,1 @@
+Files spike/commit.log and spike/spike.log are identical

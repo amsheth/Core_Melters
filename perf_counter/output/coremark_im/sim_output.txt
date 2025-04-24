@@ -1,0 +1,671 @@
+mkdir -p vcs
+python3 check_sus.py
+../bin/rvfi_reference.py
+cd vcs && vcs /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../pkg/types.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/divider_exec.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rat.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/res_station.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lru_array.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_rs.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_exec.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/multiplier_exec.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cpu.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_rs.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rob.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lsq_adder.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/valid_array.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cdb_arb.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/s_queue.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/queue.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/regfile.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rrf.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/ld_rs.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/transparent_regfile.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/provided_cache.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/free_list.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_exec.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/burst_controller.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/decode.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/stack.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/priority_enc.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/rvfimon.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/mem_itf.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/dram_w_burst_frfcfs_controller.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/monitor.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/mon_itf.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/ls_sniffer.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/burst_sniffer.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/rob_sniffer.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/fetch_q_sniffer.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/stall_sniffer.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/fetch_sniffer.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/top_tb.sv /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_256_entry_2_bit/mp_ooo_2_port_256_entry_2_bit.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_cache_data_array/mp_cache_data_array.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_icache_tag_array/mp_icache_tag_array.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_branch_table/mp_ooo_branch_table.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_512_entry_3_bit/mp_ooo_2_port_512_entry_3_bit.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_icache_data_array/mp_icache_data_array.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_32_entry_2_bit/mp_ooo_2_port_32_entry_2_bit.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_512_entry_2_bit/mp_ooo_2_port_512_entry_2_bit.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_1_port_512_entry_2_bit/mp_ooo_1_port_512_entry_2_bit.v /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_cache_tag_array/mp_cache_tag_array.v /software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver/DW_mult_pipe.v /software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver/DW_div_seq.v /software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver/DW02_mult.v -full64 -lca -sverilog -timescale=1ps/1ps -debug_acc+all -kdb -fsdb -suppress=LCA_FEATURES_ENABLED -msg_config=../vcs_warn.config -xprop=../xprop.config -xprop=flowctrl +incdir+/software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver +define+DW_SUPPRESS_WARN +incdir+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs +incdir+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common -l compile.log -top top_tb -o top_tb
+                         Chronologic VCS (TM)
+      Version R-2020.12-SP1-1_Full64 -- Fri Dec  6 17:55:13 2024
+
+                    Copyright (c) 1991 - 2021 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+            or distribution of this software is strictly prohibited.
+
+Reading Config file '../xprop.config'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../pkg/types.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/divider_exec.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rat.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/res_station.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lru_array.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_rs.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_exec.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/multiplier_exec.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cpu.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_rs.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rob.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lsq_adder.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/valid_array.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cdb_arb.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/s_queue.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/queue.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/regfile.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rrf.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/ld_rs.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/transparent_regfile.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/provided_cache.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/free_list.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_exec.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/burst_controller.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/decode.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/stack.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/priority_enc.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/rvfimon.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/mem_itf.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/dram_w_burst_frfcfs_controller.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/monitor.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/mon_itf.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/ls_sniffer.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/burst_sniffer.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/rob_sniffer.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/fetch_q_sniffer.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/stall_sniffer.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/fetch_sniffer.sv'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/top_tb.sv'
+Parsing included file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/common/rvfi_reference.svh'.
+Back to file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/top_tb.sv'.
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_256_entry_2_bit/mp_ooo_2_port_256_entry_2_bit.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_cache_data_array/mp_cache_data_array.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_icache_tag_array/mp_icache_tag_array.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_branch_table/mp_ooo_branch_table.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_512_entry_3_bit/mp_ooo_2_port_512_entry_3_bit.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_icache_data_array/mp_icache_data_array.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_32_entry_2_bit/mp_ooo_2_port_32_entry_2_bit.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_512_entry_2_bit/mp_ooo_2_port_512_entry_2_bit.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_1_port_512_entry_2_bit/mp_ooo_1_port_512_entry_2_bit.v'
+Parsing design file '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_cache_tag_array/mp_cache_tag_array.v'
+Parsing design file '/software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver/DW_mult_pipe.v'
+Parsing design file '/software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver/DW_div_seq.v'
+Parsing included file '/software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver/DW_div_function.inc'.
+Back to file '/software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver/DW_div_seq.v'.
+Parsing design file '/software/Synopsys-2021_x86_64/icc/R-2020.09-SP4/dw/sim_ver/DW02_mult.v'
+Top Level Modules:
+       top_tb
+TimeScale is 1 ps / 1 ps
+Notice: Ports coerced to inout, use -notice for details
+Starting vcs inline pass...
+93 modules and 0 UDP read.
+recompiling package mem_types
+recompiling package rv32i_types
+recompiling module divider_exec
+recompiling module RAT
+recompiling module res_station
+recompiling module lru_array
+recompiling module cache
+recompiling module br_rs
+recompiling module alu_exec
+recompiling module alu_queue
+recompiling module multiplier_exec
+recompiling module cpu
+recompiling module icache
+recompiling module alu_rs
+recompiling module rob
+recompiling module lsq_adder
+recompiling module dispatch
+recompiling module valid_array
+recompiling module cdb_arb
+recompiling module s_queue
+recompiling module bmem_controller
+recompiling module RRF
+recompiling module ld_rs
+recompiling module transparent_regfile
+recompiling module free_list
+recompiling module br_exec
+recompiling module decode_rename
+recompiling module stack
+recompiling module priority_enc
+recompiling module riscv_formal_monitor_rv32imc
+recompiling module riscv_formal_monitor_rv32imc_rob
+recompiling module riscv_formal_monitor_rv32imc_isa_spec
+recompiling module riscv_formal_monitor_rv32imc_insn_c_jr
+recompiling module riscv_formal_monitor_rv32imc_insn_c_li
+recompiling module riscv_formal_monitor_rv32imc_insn_c_lui
+recompiling module riscv_formal_monitor_rv32imc_insn_c_lw
+recompiling module riscv_formal_monitor_rv32imc_insn_c_lwsp
+recompiling module riscv_formal_monitor_rv32imc_insn_c_mv
+recompiling module riscv_formal_monitor_rv32imc_insn_c_or
+recompiling module riscv_formal_monitor_rv32imc_insn_c_slli
+recompiling module riscv_formal_monitor_rv32imc_insn_c_srai
+recompiling module riscv_formal_monitor_rv32imc_insn_c_srli
+recompiling module riscv_formal_monitor_rv32imc_insn_c_sub
+recompiling module riscv_formal_monitor_rv32imc_insn_c_sw
+recompiling module riscv_formal_monitor_rv32imc_insn_c_swsp
+recompiling module riscv_formal_monitor_rv32imc_insn_c_xor
+recompiling module riscv_formal_monitor_rv32imc_insn_divu
+recompiling module riscv_formal_monitor_rv32imc_insn_jal
+recompiling module riscv_formal_monitor_rv32imc_insn_jalr
+recompiling module riscv_formal_monitor_rv32imc_insn_lb
+50 of 93 modules done
+recompiling module riscv_formal_monitor_rv32imc_insn_lbu
+recompiling module riscv_formal_monitor_rv32imc_insn_lh
+recompiling module riscv_formal_monitor_rv32imc_insn_lhu
+recompiling module riscv_formal_monitor_rv32imc_insn_lui
+recompiling module riscv_formal_monitor_rv32imc_insn_lw
+recompiling module riscv_formal_monitor_rv32imc_insn_mul
+recompiling module riscv_formal_monitor_rv32imc_insn_mulh
+recompiling module riscv_formal_monitor_rv32imc_insn_mulhsu
+recompiling module riscv_formal_monitor_rv32imc_insn_mulhu
+recompiling module riscv_formal_monitor_rv32imc_insn_or
+recompiling module riscv_formal_monitor_rv32imc_insn_ori
+recompiling module riscv_formal_monitor_rv32imc_insn_remu
+recompiling module riscv_formal_monitor_rv32imc_insn_sb
+recompiling module riscv_formal_monitor_rv32imc_insn_sh
+recompiling module riscv_formal_monitor_rv32imc_insn_sll
+recompiling module riscv_formal_monitor_rv32imc_insn_slli
+recompiling module riscv_formal_monitor_rv32imc_insn_slt
+recompiling module riscv_formal_monitor_rv32imc_insn_slti
+recompiling module riscv_formal_monitor_rv32imc_insn_sltiu
+recompiling module riscv_formal_monitor_rv32imc_insn_sltu
+recompiling module riscv_formal_monitor_rv32imc_insn_sra
+recompiling module riscv_formal_monitor_rv32imc_insn_srai
+recompiling module riscv_formal_monitor_rv32imc_insn_srl
+recompiling module riscv_formal_monitor_rv32imc_insn_srli
+recompiling module riscv_formal_monitor_rv32imc_insn_sub
+recompiling module riscv_formal_monitor_rv32imc_insn_sw
+recompiling module riscv_formal_monitor_rv32imc_insn_xor
+recompiling module riscv_formal_monitor_rv32imc_insn_xori
+recompiling module mem_itf_banked
+recompiling module monitor
+recompiling module mon_itf
+recompiling module rob_sniffer
+recompiling module fetch_q_sniffer
+recompiling module stall_sniffer
+recompiling module top_tb
+recompiling module mp_cache_data_array
+recompiling module mp_icache_tag_array
+recompiling module mp_icache_data_array
+recompiling module mp_ooo_2_port_512_entry_2_bit
+recompiling module mp_cache_tag_array
+recompiling module DW_mult_pipe
+recompiling module DW_div_seq
+recompiling module DW02_mult
+All of 93 modules done
+make[1]: Entering directory '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/vcs/csrc'
+make[1]: Leaving directory '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/vcs/csrc'
+make[1]: Entering directory '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/vcs/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../top_tb ]; then chmod a-x ../top_tb; fi
+g++  -o ../top_tb      -rdynamic  -Wl,-rpath='$ORIGIN'/top_tb.daidir -Wl,-rpath=./top_tb.daidir -Wl,-rpath=/software/Synopsys-2021_x86_64/vcs/R-2020.12-SP1-1/linux64/lib -L/software/Synopsys-2021_x86_64/vcs/R-2020.12-SP1-1/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1   objs/amcQw_d.o   _120374_archive_1.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -luclinative /software/Synopsys-2021_x86_64/vcs/R-2020.12-SP1-1/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /software/Synopsys-2021_x86_64/vcs/R-2020.12-SP1-1/linux64/lib/vcs_save_restore_new.o /software/Synopsys-2021_x86_64/verdi/R-2020.12-SP1-1/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm -lpthread -ldl 
+../top_tb up to date
+make[1]: Leaving directory '/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/vcs/csrc'
+CPU time: 4.418 seconds to compile + .376 seconds to elab + .296 seconds to link
+Verdi KDB elaboration done and the database successfully generated: 0 error(s), 0 warning(s)
+bash check_compile_error.sh
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/divider_exec.sv:61 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/divider_exec.sv:89 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/divider_exec.sv:149 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rat.sv:46 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/res_station.sv:41 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/res_station.sv:90 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lru_array.sv:31 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lru_array.sv:53 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_rs.sv:36 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_rs.sv:78 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_exec.sv:71 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_exec.sv:140 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_exec.sv:214 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/multiplier_exec.sv:63 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/multiplier_exec.sv:101 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_rs.sv:37 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/alu_rs.sv:84 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rob.sv:54 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lsq_adder.sv:67 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lsq_adder.sv:81 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lsq_adder.sv:108 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lsq_adder.sv:152 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/lsq_adder.sv:373 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv:44 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv:48 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv:50 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv:52 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv:54 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv:56 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/dispatch.sv:67 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/valid_array.sv:22 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/valid_array.sv:37 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cdb_arb.sv:61 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/s_queue.sv:60 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/queue.sv:37 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:~74 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:~77 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:~85 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:~88 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:~96 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:~99 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:110 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:146 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:152 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:282 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:295 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:301 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:315 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/bmem_controller.sv:321 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rrf.sv:65 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/rrf.sv:84 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/ld_rs.sv:50 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/ld_rs.sv:118 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/transparent_regfile.sv:33 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv:91 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv:119 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv:148 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv:168 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv:196 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv:210 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/fetchyfetch.sv:242 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/free_list.sv:45 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_exec.sv:43 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_exec.sv:74 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_exec.sv:112 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/br_exec.sv:120 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/decode.sv:80 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/decode.sv:100 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/stack.sv:14 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/stack.sv:38 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/priority_enc.sv:11 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_cache_data_array/mp_cache_data_array.v:41 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_cache_data_array/mp_cache_data_array.v:52 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_icache_tag_array/mp_icache_tag_array.v:37 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_icache_tag_array/mp_icache_tag_array.v:47 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_icache_data_array/mp_icache_data_array.v:41 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_icache_data_array/mp_icache_data_array.v:52 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_512_entry_2_bit/mp_ooo_2_port_512_entry_2_bit.v:45 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_512_entry_2_bit/mp_ooo_2_port_512_entry_2_bit.v:59 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_512_entry_2_bit/mp_ooo_2_port_512_entry_2_bit.v:69 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_ooo_2_port_512_entry_2_bit/mp_ooo_2_port_512_entry_2_bit.v:81 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_cache_tag_array/mp_cache_tag_array.v:37 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../sram/output/mp_cache_tag_array/mp_cache_tag_array.v:47 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:79 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:181 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:187 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:203 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:227 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:409 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:591 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:773 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/icache.sv:955 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:78 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:~144 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:~147 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:180 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:186 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:202 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:226 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:410 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:594 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:778 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:962 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:1146 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:1330 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:1514 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:1698 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:1882 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:2066 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:2250 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:2434 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:2618 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:2802 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:2986 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cache.sv:3170 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/queue.sv:37 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/priority_enc.sv:11 YES
+/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hdl/cdb_arb.sv:61 YES
+==================================================
+X P R O P   S T A T I S T I C S
+instrumentable assignments:    1367
+instrumented assignments:      1367
+instrumentation success rate:  100%
+[0;32mCompile Successful [0m
+mkdir -p spike
+../bin/generate_memory_file.py -32 /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/testcode/coremark_im.elf
+[INFO]  Disassembling coremark_im.elf to /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/bin/../sim/bin/coremark_im.dis
+[INFO]  Wrote memory contents to /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/bin/../sim/bin/memory_32.lst
+rm -f vcs/dump.fsdb
+python3 /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../bin/get_options.py clock
+2000
+python3 /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../bin/get_options.py bmem_x
+1
+cd vcs && ./top_tb -l simulation.log -exitstatus \
+	+TIMEOUT_ECE411=10000000 \
+	+CLOCK_PERIOD_PS_ECE411=2000 \
+	+MEMLST_ECE411="/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/bin/memory_32.lst" \
+	+BRAM_0_ON_X_ECE411=1
+Chronologic VCS simulator copyright 1991-2020
+Contains Synopsys proprietary information.
+Compiler version R-2020.12-SP1-1_Full64; Runtime version R-2020.12-SP1-1_Full64;  Dec  6 17:55 2024
+*Verdi* Loading libsscore_vcs202012.so
+FSDB Dumper for VCS, Release Verdi_R-2020.12-SP1-1, Linux x86_64/64bit, 04/20/2021
+(C) 1996 - 2021 by Synopsys, Inc.
+*Verdi* : Create FSDB file 'dump.fsdb'
+*Verdi* : Begin traversing the scopes, layer (0).
+*Verdi* : Enable +all dumping.
+*Verdi* : End of traversing.
+using memory file /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/bin/memory_32.lst
+using memory file /home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/bin/memory_32.lst
+dut commit No.                   0, rd_s: x00, rd: 0x00000000
+dut commit No.                1000, rd_s: x00, rd: 0x00000000
+dut commit No.                2000, rd_s: x00, rd: 0x00000000
+dut commit No.                3000, rd_s: x00, rd: 0x00000000
+dut commit No.                4000, rd_s: x00, rd: 0x00000000
+dut commit No.                5000, rd_s: x00, rd: 0x00000000
+dut commit No.                6000, rd_s: x15, rd: 0x1ecf2038
+dut commit No.                7000, rd_s: x15, rd: 0x000002d0
+dut commit No.                8000, rd_s: x12, rd: 0x1ecf23aa
+dut commit No.                9000, rd_s: x09, rd: 0x1ecf1098
+dut commit No.               10000, rd_s: x07, rd: 0x1ecf0a18
+dut commit No.               11000, rd_s: x07, rd: 0x0000fffd
+dut commit No.               12000, rd_s: x15, rd: 0x00001771
+Monitor: Segment Start time is             47625000
+Monitor: Power Start time is             47627000
+dut commit No.               13000, rd_s: x00, rd: 0x00000000
+dut commit No.               14000, rd_s: x00, rd: 0x00000000
+dut commit No.               15000, rd_s: x15, rd: 0x1ecf2050
+dut commit No.               16000, rd_s: x00, rd: 0x00000000
+dut commit No.               17000, rd_s: x00, rd: 0x00000000
+dut commit No.               18000, rd_s: x13, rd: 0x1ecf20a8
+dut commit No.               19000, rd_s: x00, rd: 0x00000000
+dut commit No.               20000, rd_s: x24, rd: 0x00000019
+dut commit No.               21000, rd_s: x00, rd: 0x00000000
+dut commit No.               22000, rd_s: x12, rd: 0x00007fff
+dut commit No.               23000, rd_s: x14, rd: 0x1ecf2168
+dut commit No.               24000, rd_s: x00, rd: 0x00000000
+dut commit No.               25000, rd_s: x15, rd: 0x1ecf20b0
+dut commit No.               26000, rd_s: x00, rd: 0x00000000
+dut commit No.               27000, rd_s: x12, rd: 0x00000110
+dut commit No.               28000, rd_s: x14, rd: 0x1ecf216c
+dut commit No.               29000, rd_s: x00, rd: 0x00000000
+dut commit No.               30000, rd_s: x15, rd: 0x1ecf2040
+dut commit No.               31000, rd_s: x00, rd: 0x00000000
+dut commit No.               32000, rd_s: x12, rd: 0x0000070e
+dut commit No.               33000, rd_s: x14, rd: 0x1ecf2148
+dut commit No.               34000, rd_s: x00, rd: 0x00000000
+dut commit No.               35000, rd_s: x15, rd: 0x1ecf2020
+dut commit No.               36000, rd_s: x00, rd: 0x00000000
+dut commit No.               37000, rd_s: x12, rd: 0x0000040b
+dut commit No.               38000, rd_s: x14, rd: 0x1ecf2120
+dut commit No.               39000, rd_s: x00, rd: 0x00000000
+dut commit No.               40000, rd_s: x15, rd: 0x1ecf2018
+dut commit No.               41000, rd_s: x00, rd: 0x00000000
+dut commit No.               42000, rd_s: x12, rd: 0x00000413
+dut commit No.               43000, rd_s: x14, rd: 0x1ecf2100
+dut commit No.               44000, rd_s: x00, rd: 0x00000000
+dut commit No.               45000, rd_s: x15, rd: 0x1ecf2048
+dut commit No.               46000, rd_s: x00, rd: 0x00000000
+dut commit No.               47000, rd_s: x10, rd: 0x1ecf212c
+dut commit No.               48000, rd_s: x00, rd: 0x00000000
+dut commit No.               49000, rd_s: x13, rd: 0x1ecf24e0
+dut commit No.               50000, rd_s: x00, rd: 0x00000000
+dut commit No.               51000, rd_s: x13, rd: 0x00000095
+dut commit No.               52000, rd_s: x16, rd: 0x00000001
+dut commit No.               53000, rd_s: x15, rd: 0x1ecf229c
+dut commit No.               54000, rd_s: x13, rd: 0x1ecf239a
+dut commit No.               55000, rd_s: x14, rd: 0x00000049
+dut commit No.               56000, rd_s: x12, rd: 0x000948b2
+dut commit No.               57000, rd_s: x15, rd: 0x1ecf230a
+dut commit No.               58000, rd_s: x14, rd: 0x000000ad
+dut commit No.               59000, rd_s: x12, rd: 0x001c42de
+dut commit No.               60000, rd_s: x12, rd: 0x00000000
+dut commit No.               61000, rd_s: x24, rd: 0x00000005
+dut commit No.               62000, rd_s: x15, rd: 0x00000084
+dut commit No.               63000, rd_s: x24, rd: 0x0000000f
+dut commit No.               64000, rd_s: x15, rd: 0x000000a2
+dut commit No.               65000, rd_s: x24, rd: 0x00000003
+dut commit No.               66000, rd_s: x15, rd: 0x00000099
+dut commit No.               67000, rd_s: x24, rd: 0x00000ac0
+dut commit No.               68000, rd_s: x15, rd: 0x0000006b
+dut commit No.               69000, rd_s: x24, rd: 0x000009e9
+dut commit No.               70000, rd_s: x11, rd: 0x00000000
+dut commit No.               71000, rd_s: x14, rd: 0x00000014
+dut commit No.               72000, rd_s: x14, rd: 0x00000044
+dut commit No.               73000, rd_s: x14, rd: 0x005a0000
+dut commit No.               74000, rd_s: x30, rd: 0x0000b77b
+dut commit No.               75000, rd_s: x14, rd: 0x00010000
+dut commit No.               76000, rd_s: x13, rd: 0x00000040
+dut commit No.               77000, rd_s: x14, rd: 0x000000b7
+dut commit No.               78000, rd_s: x14, rd: 0x00021daa
+dut commit No.               79000, rd_s: x15, rd: 0x1ecf22f0
+dut commit No.               80000, rd_s: x00, rd: 0x00000000
+dut commit No.               81000, rd_s: x14, rd: 0x0000344a
+dut commit No.               82000, rd_s: x11, rd: 0x0000580f
+dut commit No.               83000, rd_s: x17, rd: 0x1ecf24b8
+dut commit No.               84000, rd_s: x14, rd: 0x1ecf22a2
+dut commit No.               85000, rd_s: x15, rd: 0x000000b9
+dut commit No.               86000, rd_s: x14, rd: 0x1ecf22c2
+dut commit No.               87000, rd_s: x15, rd: 0x000000d9
+dut commit No.               88000, rd_s: x15, rd: 0x000002ac
+dut commit No.               89000, rd_s: x12, rd: 0x000003b8
+dut commit No.               90000, rd_s: x15, rd: 0x0000069f
+dut commit No.               91000, rd_s: x12, rd: 0x000002e6
+dut commit No.               92000, rd_s: x15, rd: 0x00000008
+dut commit No.               93000, rd_s: x15, rd: 0x0000007f
+dut commit No.               94000, rd_s: x11, rd: 0x00000c4c
+dut commit No.               95000, rd_s: x00, rd: 0x00000000
+dut commit No.               96000, rd_s: x14, rd: 0x00000094
+dut commit No.               97000, rd_s: x15, rd: 0x00000104
+dut commit No.               98000, rd_s: x13, rd: 0x0000005c
+dut commit No.               99000, rd_s: x13, rd: 0x00000010
+dut commit No.              100000, rd_s: x17, rd: 0x000019dc
+dut commit No.              101000, rd_s: x15, rd: 0x1ecf22be
+dut commit No.              102000, rd_s: x00, rd: 0x00000000
+dut commit No.              103000, rd_s: x14, rd: 0x00001b7b
+dut commit No.              104000, rd_s: x11, rd: 0x00000024
+dut commit No.              105000, rd_s: x00, rd: 0x00000000
+dut commit No.              106000, rd_s: x13, rd: 0x1ecf2396
+dut commit No.              107000, rd_s: x15, rd: 0x004a0000
+dut commit No.              108000, rd_s: x13, rd: 0x1ecf237c
+dut commit No.              109000, rd_s: x14, rd: 0x1ecf22bc
+dut commit No.              110000, rd_s: x13, rd: 0x1ecf2356
+dut commit No.              111000, rd_s: x14, rd: 0x1ecf22dc
+dut commit No.              112000, rd_s: x15, rd: 0x0000006b
+dut commit No.              113000, rd_s: x14, rd: 0x1ecf22fc
+dut commit No.              114000, rd_s: x15, rd: 0x0000008b
+dut commit No.              115000, rd_s: x14, rd: 0x1ecf231c
+dut commit No.              116000, rd_s: x12, rd: 0x00000ea1
+dut commit No.              117000, rd_s: x15, rd: 0x000002f4
+dut commit No.              118000, rd_s: x13, rd: 0x1ecf24c8
+dut commit No.              119000, rd_s: x11, rd: 0x00002b9e
+dut commit No.              120000, rd_s: x00, rd: 0x00000000
+dut commit No.              121000, rd_s: x13, rd: 0x1ecf25a6
+dut commit No.              122000, rd_s: x14, rd: 0x0000002e
+dut commit No.              123000, rd_s: x15, rd: 0x1ecf262d
+dut commit No.              124000, rd_s: x15, rd: 0x0000002e
+dut commit No.              125000, rd_s: x10, rd: 0x00000045
+dut commit No.              126000, rd_s: x00, rd: 0x00000000
+dut commit No.              127000, rd_s: x13, rd: 0x1ecf273f
+dut commit No.              128000, rd_s: x14, rd: 0x0000002c
+dut commit No.              129000, rd_s: x15, rd: 0x0000004a
+dut commit No.              130000, rd_s: x15, rd: 0xeffffeb4
+dut commit No.              131000, rd_s: x14, rd: 0x0000002c
+dut commit No.              132000, rd_s: x10, rd: 0x00000004
+dut commit No.              133000, rd_s: x15, rd: 0x1ecf2633
+dut commit No.              134000, rd_s: x00, rd: 0x00000000
+dut commit No.              135000, rd_s: x14, rd: 0x0000002e
+dut commit No.              136000, rd_s: x00, rd: 0x00000000
+dut commit No.              137000, rd_s: x01, rd: 0x1ecec9b8
+dut commit No.              138000, rd_s: x00, rd: 0x00000000
+dut commit No.              139000, rd_s: x13, rd: 0x00000002
+dut commit No.              140000, rd_s: x12, rd: 0x00000000
+dut commit No.              141000, rd_s: x05, rd: 0xffffffff
+dut commit No.              142000, rd_s: x17, rd: 0x00000000
+dut commit No.              143000, rd_s: x05, rd: 0x00000001
+dut commit No.              144000, rd_s: x13, rd: 0x00000002
+dut commit No.              145000, rd_s: x15, rd: 0x1ecf2571
+dut commit No.              146000, rd_s: x00, rd: 0x00000000
+dut commit No.              147000, rd_s: x14, rd: 0x0000002e
+dut commit No.              148000, rd_s: x14, rd: 0x0000002c
+dut commit No.              149000, rd_s: x13, rd: 0x1ecf2683
+dut commit No.              150000, rd_s: x10, rd: 0x00000020
+dut commit No.              151000, rd_s: x10, rd: 0x00000009
+dut commit No.              152000, rd_s: x00, rd: 0x00000000
+dut commit No.              153000, rd_s: x01, rd: 0x1ecec950
+dut commit No.              154000, rd_s: x14, rd: 0x00000009
+dut commit No.              155000, rd_s: x14, rd: 0x00000009
+dut commit No.              156000, rd_s: x15, rd: 0x0000002d
+dut commit No.              157000, rd_s: x15, rd: 0x1ecf2602
+dut commit No.              158000, rd_s: x11, rd: 0xeffffed0
+dut commit No.              159000, rd_s: x10, rd: 0x000000af
+dut commit No.              160000, rd_s: x10, rd: 0x00000009
+dut commit No.              161000, rd_s: x13, rd: 0x00000031
+dut commit No.              162000, rd_s: x14, rd: 0x00000009
+dut commit No.              163000, rd_s: x15, rd: 0x1ecf2798
+dut commit No.              164000, rd_s: x05, rd: 0x00007354
+dut commit No.              165000, rd_s: x17, rd: 0x000002f6
+dut commit No.              166000, rd_s: x13, rd: 0x00007f7e
+dut commit No.              167000, rd_s: x12, rd: 0x00002932
+dut commit No.              168000, rd_s: x30, rd: 0x00005bcc
+dut commit No.              169000, rd_s: x13, rd: 0x00000005
+dut commit No.              170000, rd_s: x13, rd: 0x00000002
+dut commit No.              171000, rd_s: x13, rd: 0x1ecf25d1
+dut commit No.              172000, rd_s: x00, rd: 0x00000000
+dut commit No.              173000, rd_s: x00, rd: 0x00000000
+dut commit No.              174000, rd_s: x14, rd: 0x0000002c
+dut commit No.              175000, rd_s: x00, rd: 0x00000000
+dut commit No.              176000, rd_s: x14, rd: 0x0000002c
+dut commit No.              177000, rd_s: x00, rd: 0x00000000
+dut commit No.              178000, rd_s: x14, rd: 0x0000002e
+dut commit No.              179000, rd_s: x00, rd: 0x00000000
+dut commit No.              180000, rd_s: x00, rd: 0x00000000
+dut commit No.              181000, rd_s: x13, rd: 0x1ecf25d5
+dut commit No.              182000, rd_s: x00, rd: 0x00000000
+dut commit No.              183000, rd_s: x15, rd: 0x1ecf265e
+dut commit No.              184000, rd_s: x00, rd: 0x00000000
+dut commit No.              185000, rd_s: x13, rd: 0x1ecf26e2
+dut commit No.              186000, rd_s: x15, rd: 0x1ecf2728
+dut commit No.              187000, rd_s: x13, rd: 0x00000032
+dut commit No.              188000, rd_s: x00, rd: 0x00000000
+dut commit No.              189000, rd_s: x13, rd: 0x00001f9a
+dut commit No.              190000, rd_s: x12, rd: 0x00002f06
+dut commit No.              191000, rd_s: x29, rd: 0x00000000
+dut commit No.              192000, rd_s: x31, rd: 0x0000588a
+dut commit No.              193000, rd_s: x29, rd: 0x00000000
+dut commit No.              194000, rd_s: x12, rd: 0x00000000
+dut commit No.              195000, rd_s: x14, rd: 0x00000060
+dut commit No.              196000, rd_s: x14, rd: 0x00960000
+dut commit No.              197000, rd_s: x14, rd: 0x0000a00b
+dut commit No.              198000, rd_s: x00, rd: 0x00000000
+dut commit No.              199000, rd_s: x12, rd: 0x1ecf2518
+dut commit No.              200000, rd_s: x14, rd: 0x00002878
+dut commit No.              201000, rd_s: x11, rd: 0x00000019
+dut commit No.              202000, rd_s: x00, rd: 0x00000000
+dut commit No.              203000, rd_s: x13, rd: 0x1ecf2380
+dut commit No.              204000, rd_s: x11, rd: 0x00000041
+dut commit No.              205000, rd_s: x12, rd: 0xff80b724
+dut commit No.              206000, rd_s: x14, rd: 0x00320000
+dut commit No.              207000, rd_s: x17, rd: 0x1ecf23ec
+dut commit No.              208000, rd_s: x13, rd: 0x1ecf238a
+dut commit No.              209000, rd_s: x14, rd: 0x1ecf22d0
+dut commit No.              210000, rd_s: x13, rd: 0x1ecf2364
+dut commit No.              211000, rd_s: x14, rd: 0x1ecf22f0
+dut commit No.              212000, rd_s: x22, rd: 0x00000005
+dut commit No.              213000, rd_s: x00, rd: 0x00000000
+dut commit No.              214000, rd_s: x12, rd: 0x00000a54
+dut commit No.              215000, rd_s: x00, rd: 0x00000000
+dut commit No.              216000, rd_s: x12, rd: 0x00000675
+dut commit No.              217000, rd_s: x15, rd: 0x01e00000
+dut commit No.              218000, rd_s: x00, rd: 0x00000000
+dut commit No.              219000, rd_s: x00, rd: 0x00000000
+dut commit No.              220000, rd_s: x12, rd: 0xeffffeac
+dut commit No.              221000, rd_s: x01, rd: 0x1ecec950
+dut commit No.              222000, rd_s: x00, rd: 0x00000000
+dut commit No.              223000, rd_s: x15, rd: 0x00000001
+dut commit No.              224000, rd_s: x15, rd: 0x1ecf26a7
+dut commit No.              225000, rd_s: x00, rd: 0x00000000
+dut commit No.              226000, rd_s: x15, rd: 0x00000005
+dut commit No.              227000, rd_s: x00, rd: 0x00000000
+dut commit No.              228000, rd_s: x10, rd: 0x00000035
+dut commit No.              229000, rd_s: x01, rd: 0x1ecec9c0
+dut commit No.              230000, rd_s: x00, rd: 0x00000000
+dut commit No.              231000, rd_s: x14, rd: 0x00000009
+dut commit No.              232000, rd_s: x14, rd: 0x0000002e
+dut commit No.              233000, rd_s: x00, rd: 0x00000000
+dut commit No.              234000, rd_s: x00, rd: 0x00000000
+dut commit No.              235000, rd_s: x14, rd: 0x00000048
+dut commit No.              236000, rd_s: x14, rd: 0x0000002c
+dut commit No.              237000, rd_s: x10, rd: 0xeffffeac
+dut commit No.              238000, rd_s: x00, rd: 0x00000000
+dut commit No.              239000, rd_s: x31, rd: 0x00007430
+dut commit No.              240000, rd_s: x05, rd: 0x00000000
+dut commit No.              241000, rd_s: x13, rd: 0x000060b3
+dut commit No.              242000, rd_s: x05, rd: 0x00005f65
+dut commit No.              243000, rd_s: x13, rd: 0x00000003
+dut commit No.              244000, rd_s: x15, rd: 0x00000093
+dut commit No.              245000, rd_s: x00, rd: 0x00000000
+dut commit No.              246000, rd_s: x00, rd: 0x00000000
+dut commit No.              247000, rd_s: x00, rd: 0x00000000
+dut commit No.              248000, rd_s: x02, rd: 0xeffffea0
+dut commit No.              249000, rd_s: x14, rd: 0x0000798a
+dut commit No.              250000, rd_s: x14, rd: 0x00000001
+dut commit No.              251000, rd_s: x18, rd: 0x00000000
+dut commit No.              252000, rd_s: x14, rd: 0x00007126
+dut commit No.              253000, rd_s: x00, rd: 0x00000000
+dut commit No.              254000, rd_s: x12, rd: 0x00001b1b
+dut commit No.              255000, rd_s: x00, rd: 0x00000000
+dut commit No.              256000, rd_s: x10, rd: 0x1ecf2128
+dut commit No.              257000, rd_s: x13, rd: 0x00000001
+dut commit No.              258000, rd_s: x14, rd: 0x00000001
+dut commit No.              259000, rd_s: x13, rd: 0xffffd359
+dut commit No.              260000, rd_s: x14, rd: 0xffff98cb
+dut commit No.              261000, rd_s: x00, rd: 0x00000000
+dut commit No.              262000, rd_s: x11, rd: 0x00000005
+dut commit No.              263000, rd_s: x00, rd: 0x00000000
+dut commit No.              264000, rd_s: x08, rd: 0x1ecf2088
+dut commit No.              265000, rd_s: x08, rd: 0x1ecf20b0
+dut commit No.              266000, rd_s: x08, rd: 0x1ecf2068
+dut commit No.              267000, rd_s: x15, rd: 0x00150000
+dut commit No.              268000, rd_s: x00, rd: 0x00000000
+dut commit No.              269000, rd_s: x08, rd: 0x1ecf2010
+dut commit No.              270000, rd_s: x00, rd: 0x00000000
+dut commit No.              271000, rd_s: x00, rd: 0x00000000
+dut commit No.              272000, rd_s: x24, rd: 0x00000036
+dut commit No.              273000, rd_s: x24, rd: 0x0000006d
+dut commit No.              274000, rd_s: x24, rd: 0x00000012
+dut commit No.              275000, rd_s: x00, rd: 0x00000000
+dut commit No.              276000, rd_s: x00, rd: 0x00000000
+dut commit No.              277000, rd_s: x00, rd: 0x00000000
+dut commit No.              278000, rd_s: x15, rd: 0x1ecf2000
+dut commit No.              279000, rd_s: x15, rd: 0x1ecf2088
+dut commit No.              280000, rd_s: x15, rd: 0x1ecf2078
+dut commit No.              281000, rd_s: x15, rd: 0x00000042
+dut commit No.              282000, rd_s: x14, rd: 0x1ecf2138
+dut commit No.              283000, rd_s: x14, rd: 0x1ecf215c
+dut commit No.              284000, rd_s: x13, rd: 0x1ecf2098
+dut commit No.              285000, rd_s: x13, rd: 0x1ecf2030
+dut commit No.              286000, rd_s: x13, rd: 0x1ecf20b8
+dut commit No.              287000, rd_s: x00, rd: 0x00000000
+dut commit No.              288000, rd_s: x00, rd: 0x00000000
+dut commit No.              289000, rd_s: x13, rd: 0x1ecf20b8
+dut commit No.              290000, rd_s: x08, rd: 0x1ecf2010
+dut commit No.              291000, rd_s: x08, rd: 0x1ecf2000
+dut commit No.              292000, rd_s: x00, rd: 0x00000000
+dut commit No.              293000, rd_s: x14, rd: 0x0000499c
+dut commit No.              294000, rd_s: x14, rd: 0x00000000
+dut commit No.              295000, rd_s: x18, rd: 0x00000001
+dut commit No.              296000, rd_s: x14, rd: 0x00000000
+dut commit No.              297000, rd_s: x00, rd: 0x00000000
+dut commit No.              298000, rd_s: x00, rd: 0x00000000
+dut commit No.              299000, rd_s: x15, rd: 0x00000002
+dut commit No.              300000, rd_s: x00, rd: 0x00000000
+dut commit No.              301000, rd_s: x13, rd: 0xbf5a0000
+dut commit No.              302000, rd_s: x18, rd: 0x00000000
+dut commit No.              303000, rd_s: x14, rd: 0x00000000
+dut commit No.              304000, rd_s: x10, rd: 0x00005c57
+Monitor: Power Stop time is            931899000
+Monitor: Segment Stop time is            931901000
+Monitor: Segment IPC: 0.659439
+Monitor: Segment Time:            884276000
+$finish called from file "/home/amsheth2/fa24_ece411_Core_Melters/mp_ooo/sim/../hvl/vcs/top_tb.sv", line 64.
+Fetch Sniffer: Fetched branches :       72665
+Fetch Sniffer: Enqueued branches :       65462
+Fetch Sniffer: Committed branches :       55170
+Fetch Sniffer: Committed branch mispredicts:        4261
+Fetch Sniffer: Branch table updates:       56929
+Fetch Sniffer: Branch mispredicts:        4261
+Fetch Sniffer: JAL (Fetched/Enqueued/Committed/Mispredict):        3202 /        3185 /        2811 /           0
+Fetch Sniffer: JALR (Fetched/Enqueued/Committed/Mispredict):        3305 /        3298 /        2494 /        1362
+Fetch Sniffer: PUSH:        1918
+Fetch Sniffer: POP:        1387
+Fetch Sniffer: Committed Branch Predictor Accuracy: 0.922766
+BURST Sniffer: No of times requested :        3793
+BURST Sniffer: No of times missed :         352
+BURST Sniffer: perc of times missed :                    0
+Load Store Sniffer: Num_Cycles:      466038
+Load Store Sniffer: Num_Cycles_with_store_load_both_not_empty:       55173
+Load Store Sniffer: Num_Cycles_with_atleast_1_match:       28890
+$finish at simulation time            932081000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 932081000 ps
+CPU Time:    219.520 seconds;       Data structure size:   1.1Mb
+Fri Dec  6 17:57:45 2024
