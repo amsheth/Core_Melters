@@ -70,7 +70,7 @@ and classify it by looking at the instruction’s opcode, destination register, 
 immediate values, funct3, and funct7. _Note: RISC-V ISA has many different types of
 instructions, and not all instructions have all the aforementioned components._
 
-
+![](img/BLD.png)
 ```
 Fig 1. Block-level Diagram of baseline processor
 ```
