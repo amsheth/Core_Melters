@@ -262,6 +262,9 @@ The images below compare the number of cycles it took to complete a request from
 The first figure shows without a prefetcher and the second one is with the prefetcher.
 
 
+![](img/pf1.png)
+![](img/pf2.png)
+
 ```
 Fig. 8: The top graph shows the number of cycles to complete coremark requests prior to the
 prefetcher. The second graph shows the number of cycles after adding the prefetcher. Note that
