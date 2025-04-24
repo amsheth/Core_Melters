@@ -359,6 +359,8 @@ As you can see from the figure below with the RAS we were able to drastically re
 JALR’s mispredicted. The RAS allowed us to improve very small amounts of performance for
 almost no loss in power or area.
 
+![](img/ras.png)
+
 ## Additional Observations
 
 One cool implementation we had is a Python script which aids in removing circular combination
@@ -398,4 +400,13 @@ processor design, implementing advanced features detailed in research papers, an
 debugging and analysis skills.
 
 
+
+![](img/fun12.jpg)
+![](img/fun2.jpg)
+![](img/fun3.jpg)
+![](img/fun4.jpg)
+![](img/fun5.jpg)
+![](img/fun6.jpg)
+![](img/fun7.jpg)
+![](img/fun8.jpg)
 
