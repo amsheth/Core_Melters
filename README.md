@@ -137,6 +137,8 @@ exercised a random sequence of instructions with random values. Normally this sc
 down due to a lack of memory modelling, however at this stage we did not implement any
 memory operations.
 
+
+![](img/dnd.jpg)
 ```
 Fig. 3: Brainstorming of decode, rename, and dispatch units, later combined
 ```
@@ -159,10 +161,13 @@ table to the RAT. We did not add any registering of the stall signal in this des
 longest critical path ended up being the branch mispredict logic as it touches the majority of
 units in our processor.
 
+
+![](img/LSQ.jpg)
 ```
 Fig. 4: Rough sketch of how the Loads and stores should be handled
 ```
 
+![](img/bmem.jpg)
 ```
 Fig. 5: Rough idea for how the burst memory controller should work with both caches
 ```
@@ -229,6 +234,8 @@ stores are made to stay on the head for 1 less cycle. However, the IPC gain for 
 (up from 0.493955 to 0.498970).
 
 
+
+![](img/st1.png) ![](img/st2.png)
 ```
 Fig. 7: Number of extra cycles a store operation is on the ROB head for fft.elf. Above is without
 PCSB and below is with PCSB. Data might have deviation due to the possible use of Verilator
